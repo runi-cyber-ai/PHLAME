@@ -1,0 +1,6 @@
+attack,transformer,llm_gemma2
+Baseline (clean),99.1,
+I0 (Reasoning),99.2,23.0
+I1 (Safety),98.9,2.0
+I2 (DoS),98.9,2.2
+Content rewrite,81.9,

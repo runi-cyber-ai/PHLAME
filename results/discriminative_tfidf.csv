@@ -1,0 +1,6 @@
+attack,discriminative,llm_gemma2
+Baseline (clean),99.2,
+I0 (Reasoning),99.2,23.0
+I1 (Safety),98.4,2.0
+I2 (DoS),99.1,2.2
+Content rewrite,97.7,

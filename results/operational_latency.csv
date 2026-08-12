@@ -1,0 +1,9 @@
+scope,condition,n,mean_calls_per_email,median_ms,p95_ms
+routed_detector,I2_DoS,20,1.1,3157.4,9713.2
+routed_detector,ICL_poison,20,1.1,3215.4,7401.2
+routed_detector,clean_legitimate,20,3,8830.8,15686.0
+routed_detector,clean_phishing,20,1.1,4377.1,6953.6
+injection_guard,guard_DoS,20,1,2551.9,2783.2
+injection_guard,guard_clean,20,1,3039.6,7159.4
+injection_guard,guard_DoS,20,1,2632.5,3662.9
+injection_guard,guard_clean,20,1,3096.7,7106.9
