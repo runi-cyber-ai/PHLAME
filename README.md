@@ -25,34 +25,26 @@ Opus appears as the intent guard, not the classifier, because it pairs a low fal
 rate with the ability to spot a risky request in a rewritten email. The same model is an
 asset in one seat and a liability in another.
 
+![Guard-routing architecture](figures/guard-routing.png)
+
+An email is flagged if any component fires, and a component that fails to answer counts
+as firing, so an unparseable verdict never lets an email through.
+
 ## Attacks and defenses
 
-Nine inference-time attacks, in two families by what the attacker manipulates:
+Nine inference-time attacks, split by what the attacker manipulates: the model's
+instructions, or the content of the email itself.
 
-| Attack | Family | What it does |
-|---|---|---|
-| `I0` naive | LLM manipulation | Tells the model to ignore instructions and answer legitimate |
-| `I1` safety refusal | LLM manipulation | Disallowed-content request that makes aligned models refuse |
-| `I2` denial of service | LLM manipulation | Long-output request that stalls the call |
-| `I1_refusal_redirect` | LLM manipulation | Frames "legitimate" as the safe answer |
-| `ICL_poison` | LLM manipulation | Fake reference labels teaching the model to answer legitimate |
-| `CoT_fewshot` | LLM manipulation | Poisoned labels plus a fabricated reasoning trace |
-| `Auth_cot_combo` | LLM manipulation | Spoofed SPF/DKIM/DMARC headers plus a fake analyst pre-scan |
-| `guard_aware_inj` | LLM manipulation | Fixed payload posing as ordinary footer text to slip past a guard |
-| Content rewriting | Content manipulation | Rewrites the email to drop familiar cues but keep the request |
+![Attack taxonomy](figures/attack-taxonomy.png)
 
-Defenses, in two layers:
+In-context learning poisoning is the strongest, flipping up to 81.2% of correct phishing
+verdicts. Naive injection and rewriting barely work, at most 4.1% and 7.3%. The payload
+strings are in `prompts/attacks.md`.
 
-| Defense | Type | Idea |
-|---|---|---|
-| `sandwich` | Prompt prevention | Repeats the task after the untrusted email |
-| `delimiters` | Prompt prevention | Fences the email as data |
-| `delimiters_and_content_guard` | Prompt prevention | Fences it and says to ignore instructions inside |
-| `instructional` | Prompt prevention | Warns the model the email may try to instruct it |
-| `known_answer` | Prompt prevention | Checks a control word to detect hijacking |
-| Injection guard | Separate call | Asks whether the email contains injected instructions |
-| Rewrite guard | Separate call | Asks whether the email looks machine-rewritten |
-| Intent guard | Separate call | Asks whether the email requests a risky action |
+Defenses come in two layers: prompt prevention, which hardens the single classifier
+call, and separate guard calls that ask a different question entirely.
+
+![Defense taxonomy](figures/defense-taxonomy.png)
 
 Prompt prevention helps but never closes the gap; the separate guard calls are what make
 routing work, because a guard fails independently of the classifier.
