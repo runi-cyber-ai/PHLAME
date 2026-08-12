@@ -60,11 +60,17 @@ routing work, because a guard fails independently of the classifier.
 ## Layout
 
 ```
-prompts/   one file per prompt: classifier, attacks, prevention, each guard
-data/      the fixed 200 + 200 evaluation cohort, ids only
-run/       classifier.py, guard.py, prevention.py, the two discriminative baselines
-results/   what the experiments produced
+explore.ipynb   rebuilds the paper's tables from results/ and plots the findings
+prompts/        one file per prompt: classifier, attacks, prevention, each guard
+data/           the fixed 200 + 200 evaluation cohort, ids only
+run/            classifier.py, guard.py, prevention.py, the two discriminative baselines
+results/        what the experiments produced
 ```
+
+`explore.ipynb` is the quickest way in. It needs only `pandas` and `matplotlib`, reads
+`results/` directly, and reproduces Tables 1, 2, 4, 5, 7 and 10 along with the
+decoupling scatter and the 216-assignment trade-off plot. It is stored with its outputs,
+so it can be read on GitHub without running anything.
 
 `results/` is all CSV. Three files hold 256,626 individual model verdicts, keyed by
 email id: `classifier_predictions.csv` (baseline and eight attacks),
