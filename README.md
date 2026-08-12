@@ -25,7 +25,7 @@ Opus appears as the intent guard, not the classifier, because it pairs a low fal
 rate with the ability to spot a risky request in a rewritten email. The same model is an
 asset in one seat and a liability in another.
 
-<img src="figures/routing.png" alt="Guard-routing architecture" width="770">
+<img src="figures/routing-poster.png" alt="Guard-routing architecture" width="760">
 
 An email is flagged if any component fires, and a component that fails to answer counts
 as firing, so an unparseable verdict never lets an email through.
@@ -35,7 +35,7 @@ as firing, so an unparseable verdict never lets an email through.
 Nine inference-time attacks, split by what the attacker manipulates: the model's
 instructions, or the content of the email itself.
 
-<img src="figures/attacks.png" alt="Attack taxonomy" width="697">
+<img src="figures/attacks-poster.png" alt="Attack taxonomy" width="700">
 
 In-context learning poisoning is the strongest, flipping up to 81.2% of correct phishing
 verdicts. Naive injection and rewriting barely work, at most 4.1% and 7.3%. The payload
@@ -44,7 +44,7 @@ strings are in `prompts/attacks.md`.
 Defenses come in two layers: prompt prevention, which hardens the single classifier
 call, and separate guard calls that ask a different question entirely.
 
-<img src="figures/defenses.png" alt="Defense taxonomy" width="717">
+<img src="figures/defenses-poster.png" alt="Defense taxonomy" width="720">
 
 Prompt prevention helps but never closes the gap; the separate guard calls are what make
 routing work, because a guard fails independently of the classifier.
