@@ -25,11 +25,6 @@ Opus appears as the intent guard, not the classifier, because it pairs a low fal
 rate with the ability to spot a risky request in a rewritten email. The same model is an
 asset in one seat and a liability in another.
 
-<img src="figures/routing.png" alt="Guard-routing architecture" width="760">
-
-An email is flagged if any component fires, and a component that fails to answer counts
-as firing, so an unparseable verdict never lets an email through.
-
 ## Attacks and defenses
 
 Nine inference-time attacks, split by what the attacker manipulates: the model's
@@ -48,6 +43,13 @@ call, and separate guard calls that ask a different question entirely.
 
 Prompt prevention helps but never closes the gap; the separate guard calls are what make
 routing work, because a guard fails independently of the classifier.
+
+Those guards are what PHLAME routes between:
+
+<img src="figures/routing.png" alt="Guard-routing architecture" width="660">
+
+An email is flagged if any component fires, and a component that fails to answer counts
+as firing, so an unparseable verdict never lets an email through.
 
 ## Layout
 
